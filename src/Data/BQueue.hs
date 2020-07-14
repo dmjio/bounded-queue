@@ -1,3 +1,5 @@
+{-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE FlexibleContexts #-}
 -----------------------------------------------------------------------------
@@ -20,10 +22,13 @@ module Data.BQueue
   , dequeue
   ) where
 
+import           Data.Data     (Data)
 import qualified Data.Foldable as F
 import           Data.List     (foldl')
 import           Data.Sequence (Seq)
 import qualified Data.Sequence as S
+import           Data.Typeable (Typeable)
+import           GHC.Generics  (Generic)
 import           Prelude       hiding (seq)
 
 -- | Bound information, specified by user
@@ -34,7 +39,7 @@ type Size   = Int
 
 -- | Bounded Queue implementation
 data BQueue a = BQueue !Bound !Size !(Seq a)
-  deriving (Show, Eq)
+  deriving (Show, Eq, Typeable, Generic, Data)
 
 instance Semigroup (BQueue a) where
   BQueue bound1 size1 s1 <> BQueue bound2 size2 s2 =
