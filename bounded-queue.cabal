@@ -10,7 +10,7 @@ copyright:           Copyright (c) 2020-2021 David M. Johnson
 bug-reports:         https://github.com/dmjio/bounded-queue/issues
 build-type:          Simple
 extra-source-files:  README.md
-cabal-version:       >=1.22
+cabal-version:       1.22
 synopsis:            A bounded queue implementation
 description:
   A pure bounded queue in Haskell
@@ -24,7 +24,7 @@ library
   exposed-modules:
     Data.BQueue
   ghc-options:
-    -Wall -Werror
+    -Wall
   hs-source-dirs:
     src
   build-depends:
