@@ -1,0 +1,10 @@
+.stack-work/
+dist-newstyle/
+cabal.project.local
+.ghc.environment.*
+result*
+dist
+*~
+.DS_Store
+*.o
+*.hi
