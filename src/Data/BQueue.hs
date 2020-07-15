@@ -1,3 +1,4 @@
+{-# LANGUAGE InstanceSigs #-}
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE TypeApplications #-}
@@ -36,7 +37,7 @@ type Bound = Int
 
 -- | Bounded Queue implementation
 data BQueue a = BQueue !Bound !(Seq a)
-  deriving (Show, Eq, Typeable, Generic, Data)
+  deriving (Show, Eq, Typeable, Generic, Data, Read, Ord)
 
 instance Semigroup (BQueue a) where
   BQueue bound1 s1 <> BQueue bound2 s2 =
@@ -47,6 +48,16 @@ instance Monoid (BQueue a) where
 
 instance Functor BQueue where
   fmap f (BQueue bound s) = BQueue bound (fmap f s)
+
+instance Applicative BQueue where
+  pure x = BQueue 1 (pure x)
+  BQueue b1 f <*> BQueue b2 m =
+    BQueue (b1 + b2) (f <*> m)
+
+instance Monad BQueue where
+  return = pure
+  (>>=) :: BQueue a -> (a -> BQueue b) -> BQueue b
+  m >>= f = foldMap f (toList m)
 
 instance Foldable BQueue where
   foldr f x (BQueue _ s) = foldr f x s
@@ -90,3 +101,5 @@ dequeue (BQueue bound s)
     case S.viewl s of
       y S.:< ys -> (Just y, BQueue bound ys)
       S.EmptyL -> (Nothing, BQueue bound s)
+
+
