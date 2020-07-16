@@ -44,7 +44,7 @@ instance Semigroup (BQueue a) where
     BQueue (bound1 + bound2) (s1 <> s2)
 
 instance Monoid (BQueue a) where
-  mempty = mempty
+  mempty = empty 0
 
 instance Functor BQueue where
   fmap f (BQueue bound s) = BQueue bound (fmap f s)
@@ -101,5 +101,3 @@ dequeue (BQueue bound s)
     case S.viewl s of
       y S.:< ys -> (Just y, BQueue bound ys)
       S.EmptyL -> (Nothing, BQueue bound s)
-
-
