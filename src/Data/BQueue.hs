@@ -8,7 +8,7 @@
 -- Module      :  Data.BQueue
 -- Copyright   :  (C) 2020 David M. Johnson
 -- License     :  BSD3-style (see the file LICENSE)
--- Maintainer  :  David M. Johnson <djohnson.m@gmail.com>
+-- Maintainer  :  David M. Johnson <code@dmj.io>
 -- Stability   :  experimental
 -- Portability :  non-portable
 ----------------------------------------------------------------------------
